@@ -10,7 +10,8 @@
 ########################################################################################
 
 name: Build Windows binaries
-on: [push, pull_request]
+on: 
+  workflow_dispatch:
 
 
 jobs:
@@ -19,20 +20,11 @@ jobs:
 
     strategy:
       matrix:
-        arch: [ amd64, amd64_x86, amd64_arm, amd64_arm64 ]
+        arch: [ amd64 ]
         include:
-          - arch: amd64_x86
-            subsys: "5.01"
-            platform: "x86"
           - arch: amd64
             subsys: "5.02"
             platform: "x64"
-          - arch: amd64_arm
-            subsys: "6.02"
-            platform: "arm"
-          - arch: amd64_arm64
-            subsys: "6.02"
-            platform: "arm64"
     steps:
       - uses: actions/checkout@v3
 
@@ -163,24 +155,6 @@ jobs:
         with:
           path: ${{ github.workspace }}\build\**\*
 
-  do-release:
-    runs-on: windows-2019
-    needs: build
-    steps:
-    - uses: actions/download-artifact@v3
-
-    - name: Generate binaries for release
-      shell: cmd
-      run: |
-        cd artifact
-        do-release.cmd
-
-    - uses: geekyeggo/delete-artifact@v2
-      with:
-          name: artifact
-
-    - uses: actions/upload-artifact@v3
-      with:
         name: 7-Zip ZS Release binaries
         path: |
           artifact\*.exe
