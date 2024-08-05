@@ -155,7 +155,6 @@ jobs:
         with:
           path: ${{ github.workspace }}\build\**\*
 
-        name: 7-Zip ZS Release binaries
-        path: |
-          artifact\*.exe
-          artifact\*.7z
+
+
+
