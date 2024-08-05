@@ -3,9 +3,11 @@ MY_CONSOLE = 1
 MY_FIXED = 1
 
 CFLAGS = $(CFLAGS) \
-  -DEXTRACT_ONLY \
-  -DNO_READ_FROM_CODER \
-  -D_SFX \
+  -DZ7_EXTRACT_ONLY \
+  -DZ7_NO_READ_FROM_CODER \
+  -DZ7_SFX \
+  -DZ7_NO_LONG_PATH \
+  -DZ7_NO_LARGE_PAGES \
 
 CURRENT_OBJS = \
   $O\SfxCon.obj \
@@ -43,6 +45,7 @@ WIN_OBJS = \
   $O\PropVariantConv.obj \
   $O\Synchronization.obj \
   $O\System.obj \
+  $O\TimeUtils.obj \
 
 7ZIP_COMMON_OBJS = \
   $O\CreateCoder.obj \
@@ -109,6 +112,7 @@ CRYPTO_OBJS = \
   $O\MyAes.obj \
 
 C_OBJS = \
+  $O\7zStream.obj \
   $O\Alloc.obj \
   $O\Bcj2.obj \
   $O\Bra.obj \
@@ -129,23 +133,5 @@ C_OBJS = \
 !include "../../Crc.mak"
 !include "../../LzmaDec.mak"
 !include "../../Sha256.mak"
-
-COMPRESS_OBJS = $(COMPRESS_OBJS) \
-  $O\ZstdDecoder.obj \
-  $O\ZstdRegister.obj \
-
-ZSTD_OBJS = \
-  $O\debug.obj \
-  $O\entropy_common.obj \
-  $O\error_private.obj \
-  $O\fse_decompress.obj \
-  $O\huf_decompress.obj \
-  $O\pool.obj \
-  $O\threading.obj \
-  $O\xxhash.obj \
-  $O\zstd_common.obj \
-  $O\zstd_ddict.obj \
-  $O\zstd_decompress_block.obj \
-  $O\zstd_decompress.obj \
 
 !include "../../7zip.mak"

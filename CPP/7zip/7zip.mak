@@ -5,14 +5,14 @@ OBJS = \
   $(WIN_OBJS) \
   $(WIN_CTRL_OBJS) \
   $(7ZIP_COMMON_OBJS) \
-  $(AR_OBJS) \
-  $(AR_COMMON_OBJS) \
   $(UI_COMMON_OBJS) \
   $(AGENT_OBJS) \
   $(CONSOLE_OBJS) \
   $(EXPLORER_OBJS) \
   $(FM_OBJS) \
   $(GUI_OBJS) \
+  $(AR_COMMON_OBJS) \
+  $(AR_OBJS) \
   $(7Z_OBJS) \
   $(CAB_OBJS) \
   $(CHM_OBJS) \
@@ -27,14 +27,6 @@ OBJS = \
   $(COMPRESS_OBJS) \
   $(CRYPTO_OBJS) \
   $(C_OBJS) \
-  $(BROTLI_OBJS) \
-  $(HASHES_OBJS) \
-  $(LIZARD_OBJS) \
-  $(LZ4_OBJS) \
-  $(LZ5_OBJS) \
-  $(ZSTD_OBJS) \
-  $(ZSTDMT_OBJS) \
-  $(FASTLZMA2_OBJS) \
   $(ASM_OBJS) \
   $O\resource.res \
 
@@ -132,7 +124,7 @@ $(WIM_OBJS): ../../Archive/Wim/$(*B).cpp
 
 !IFDEF ZIP_OBJS
 $(ZIP_OBJS): ../../Archive/Zip/$(*B).cpp
-	$(COMPL)
+	$(COMPL) $(ZIP_FLAGS)
 !ENDIF
 
 !IFDEF COMPRESS_OBJS
@@ -157,7 +149,7 @@ $(AGENT_OBJS): ../../UI/Agent/$(*B).cpp
 
 !IFDEF CONSOLE_OBJS
 $(CONSOLE_OBJS): ../../UI/Console/$(*B).cpp
-	$(COMPL)
+	$(COMPL) $(CONSOLE_VARIANT_FLAGS)
 !ENDIF
 
 !IFDEF EXPLORER_OBJS
@@ -180,41 +172,6 @@ $(C_OBJS): ../../../../C/$(*B).c
 	$(COMPL_O2)
 !ENDIF
 
-!IFDEF BROTLI_OBJS
-$(BROTLI_OBJS): ../../../../C/brotli/$(*B).c
-	$(COMPL_O2)
-!ENDIF
-
-!IFDEF LIZARD_OBJS
-$(LIZARD_OBJS): ../../../../C/lizard/$(*B).c
-	$(COMPL_O2)
-!ENDIF
-
-!IFDEF LZ4_OBJS
-$(LZ4_OBJS): ../../../../C/lz4/$(*B).c
-	$(COMPL_O2)
-!ENDIF
-
-!IFDEF LZ5_OBJS
-$(LZ5_OBJS): ../../../../C/lz5/$(*B).c
-	$(COMPL_O2)
-!ENDIF
-
-!IFDEF ZSTD_OBJS
-$(ZSTD_OBJS): ../../../../C/zstd/$(*B).c
-	$(COMPL_O2)
-!ENDIF
-
-!IFDEF ZSTDMT_OBJS
-$(ZSTDMT_OBJS): ../../../../C/zstdmt/$(*B).c
-	$(COMPL_O2)
-!ENDIF
-
-!IFDEF FASTLZMA2_OBJS
-$(FASTLZMA2_OBJS): ../../../../C/fast-lzma2/$(*B).c
-	$(COMPL_O2) -DNO_XXHASH -DFL2_7ZIP_BUILD
-!ENDIF
-
 
 !ELSE
 
@@ -234,7 +191,7 @@ $(FASTLZMA2_OBJS): ../../../../C/fast-lzma2/$(*B).c
 {../../UI/Agent}.cpp{$O}.obj::
 	$(COMPLB)
 {../../UI/Console}.cpp{$O}.obj::
-	$(COMPLB)
+	$(COMPLB) $(CONSOLE_VARIANT_FLAGS)
 {../../UI/Explorer}.cpp{$O}.obj::
 	$(COMPLB)
 {../../UI/FileManager}.cpp{$O}.obj::
@@ -269,36 +226,14 @@ $(FASTLZMA2_OBJS): ../../../../C/fast-lzma2/$(*B).c
 {../../Archive/Wim}.cpp{$O}.obj::
 	$(COMPLB)
 {../../Archive/Zip}.cpp{$O}.obj::
-	$(COMPLB)
+	$(COMPLB) $(ZIP_FLAGS)
 
 {../../Compress}.cpp{$O}.obj::
-	$(COMPLB)
+	$(COMPLB_O2)
 {../../Crypto}.cpp{$O}.obj::
-	$(CCOMPLB)
+	$(COMPLB_O2)
 {../../../../C}.c{$O}.obj::
 	$(CCOMPLB)
-{../../../../C/brotli}.c{$O}.obj::
-	$(CCOMPLB)
-{../../../../C/hashes}.c{$O}.obj::
-	$(CCOMPLB)
-{../../../../C/lizard}.c{$O}.obj::
-	$(CCOMPLB)
-{../../../../C/lz4}.c{$O}.obj::
-	$(CCOMPLB)
-{../../../../C/lz5}.c{$O}.obj::
-	$(CCOMPLB)
-{../../../../C/zstd}.c{$O}.obj::
-	$(CCOMPLB)
-{../../../../C/zstdmt}.c{$O}.obj::
-	$(CCOMPLB) \
-	-I ../../../../C/brotli \
-	-I ../../../../C/hashes \
-	-I ../../../../C/lizard \
-	-I ../../../../C/lz4 \
-	-I ../../../../C/lz5 \
-	-I ../../../../C/zstd
-{../../../../C/fast-lzma2}.c{$O}.obj::
-	$(CCOMPLB) -DNO_XXHASH -DFL2_7ZIP_BUILD
 
 !ENDIF
 
