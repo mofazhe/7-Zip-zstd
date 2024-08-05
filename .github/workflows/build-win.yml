@@ -91,36 +91,6 @@ jobs:
           IF %errorlevel% NEQ 0 EXIT 1
           copy %PLATFORM%\7z.sfx %OUTDIR%\7z.sfx
 
-          cd %ROOT%\Bundles\Codec_brotli
-          nmake %OPTS%
-          IF %errorlevel% NEQ 0 EXIT 1
-          copy %PLATFORM%\brotli.dll %OUTDIR%\brotli.dll
-
-          cd %ROOT%\Bundles\Codec_lizard
-          nmake %OPTS%
-          IF %errorlevel% NEQ 0 EXIT 1
-          copy %PLATFORM%\lizard.dll %OUTDIR%\lizard.dll
-
-          cd %ROOT%\Bundles\Codec_lz4
-          nmake %OPTS%
-          IF %errorlevel% NEQ 0 EXIT 1
-          copy %PLATFORM%\lz4.dll %OUTDIR%\lz4.dll
-
-          cd %ROOT%\Bundles\Codec_lz5
-          nmake %OPTS%
-          IF %errorlevel% NEQ 0 EXIT 1
-          copy %PLATFORM%\lz5.dll %OUTDIR%\lz5.dll
-
-          cd %ROOT%\Bundles\Codec_zstd
-          nmake %OPTS%
-          IF %errorlevel% NEQ 0 EXIT 1
-          copy %PLATFORM%\zstd.dll %OUTDIR%\zstd.dll
-
-          cd %ROOT%\Bundles\Codec_flzma2
-          nmake %OPTS%
-          IF %errorlevel% NEQ 0 EXIT 1
-          copy %PLATFORM%\flzma2.dll %OUTDIR%\flzma2.dll
-
           cd %ROOT%\..\..\C\Util\7zipInstall
           nmake %OPTS%
           IF %errorlevel% NEQ 0 EXIT 1
@@ -146,9 +116,6 @@ jobs:
           nmake %OPTS%
           IF %errorlevel% NEQ 0 EXIT 1
           copy %PLATFORM%\7za.exe %OUTDIR%\7za.exe
-
-          REM Will be by the do-release action
-          copy %WDIR%\.github\workflows\do-release.cmd %WDIR%\build\do-release.cmd
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3
